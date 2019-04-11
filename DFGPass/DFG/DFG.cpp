@@ -86,7 +86,8 @@ namespace {
 					inst_edges.push_back(edge(terminator, first));
 				}
 			}
-			writeFile(F);
+			// writeFile(F);
+			WriteFileSciling(F);
 			return false;
 		}
 
@@ -118,6 +119,47 @@ namespace {
 			}
 			file << "}\n";
 			file.close();
+		}
+
+		// void getSciling(Function &F){
+		// 	std::map<node, edge_list> scilingMap;
+		// 	for (node_list::iterator node_iter = nodes.begin(), node_end = nodes.end(); node != node_end; ++node_iter) 
+		// 	{
+		// 		if(isa<StoreInst>(*node_iter))
+		// 		{
+		// 			scilingMap[node] = edge_list();
+		// 			for (edge_list::iterator edge_iter = edges.begin(), edge_end = edges.end(); edge_iter != edge_end; ++edge_iter){
+		// 				if
+		// 			}
+		// 		}
+		// 	}
+		// }
+
+		void WriteFileSciling(Function &F){
+			std::error_code error;
+			enum sys::fs::OpenFlags F_None;
+			StringRef fileName(F.getName().str() + ".dot");
+			raw_fd_ostream file(fileName, error, F_None);
+			file << "digraph \"DFG for'" + F.getName() + "\' function\" {\n";
+			for (node_list::iterator node_iter = nodes.begin(), node_end = nodes.end(); node_iter != node_end; ++node_iter) 
+			{
+				if(isa<Instruction>(*node_iter))
+				{
+					file << "\tNode" << *node_iter << "[shape=record, label=\"" << **node_iter << "\"];\n";
+				}
+				else
+				{
+					file << "\tNode" << *node_iter << "[shape=ellipse, label=\"" << **node_iter << "\\l" << *node_iter << "\"];\n";
+
+				}
+			}
+			file << "edge [color=red]" << "\n";
+			for (edge_list::iterator edge_iter = edges.begin(), edge_end = edges.end(); edge_iter != edge_end; ++edge_iter) {
+				file << "\tNode" << edge_iter->first << " -> Node" << edge_iter->second << "\n";
+			}
+			file << "}\n";
+			file.close();
+
 		}
 
 	};
