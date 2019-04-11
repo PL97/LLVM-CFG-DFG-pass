@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -Wall -fno-rtti  -shared  -o libLLVMDFG.so CMakeFiles/LLVMDFG.dir/DFG.cpp.o  -L/opt/llvm/lib 

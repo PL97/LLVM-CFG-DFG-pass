@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -Wall -fno-rtti  -shared  -o libLLVMCFG.so CMakeFiles/LLVMCFG.dir/CFGPass.cpp.o  -L/opt/llvm/lib 
