@@ -48,10 +48,10 @@ RM = /home/tools/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leon/Desktop/pass/CFGPass
+CMAKE_SOURCE_DIR = "/home/leon/Desktop/pass/CFG&DFG/CFGPass"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leon/Desktop/pass/CFGPass/build
+CMAKE_BINARY_DIR = "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leon/Desktop/pass/CFGPass/build/CMakeFiles /home/leon/Desktop/pass/CFGPass/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build/CMakeFiles" "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build/CMakeFiles/progress.marks"
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leon/Desktop/pass/CFGPass/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target

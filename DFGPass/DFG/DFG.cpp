@@ -29,7 +29,6 @@ namespace {
 		DFGPass() : FunctionPass(ID) {}
 
 		bool runOnFunction(Function &F) override {
-			errs() << "Hello\n";
 			edges.clear();
 			nodes.clear();
 			inst_edges.clear();
@@ -74,7 +73,6 @@ namespace {
 
 					}
 					BasicBlock::iterator next = II;
-					//errs() << curII << "\n";
 					nodes.push_back(curII);
 					++next;
 					if (next != IEnd) {
@@ -98,26 +96,25 @@ namespace {
 			StringRef fileName(F.getName().str() + ".dot");
 			raw_fd_ostream file(fileName, error, F_None);
 			file << "digraph \"DFG for'" + F.getName() + "\' function\" {\n";
-			for (node_list::iterator node = nodes.begin(), node_end = nodes.end(); node != node_end; ++node) 
+			for (node_list::iterator node_iter = nodes.begin(), node_end = nodes.end(); node_iter != node_end; ++node_iter) 
 			{
-				if(isa<Instruction>(*node))
+				if(isa<Instruction>(*node_iter))
 				{
-					file << "\tNode" << *node << "[shape=record, label=\"" << **node << "\"];\n";
+					file << "\tNode" << *node_iter << "[shape=record, label=\"" << **node_iter << "\"];\n";
 				}
 				else
 				{
-					file << "\tNode" << *node << "[shape=ellipse, label=\"" << **node << "\\l" << *node << "\"];\n";
+					file << "\tNode" << *node_iter << "[shape=ellipse, label=\"" << **node_iter << "\\l" << *node_iter << "\"];\n";
 				}
 			}
-			//errs() << "Write Done\n";
-			//将inst_edges边dump
-			for (edge_list::iterator edge = inst_edges.begin(), edge_end = inst_edges.end(); edge != edge_end; ++edge) {
-				file << "\tNode" << edge->first << " -> Node" << edge->second << "\n";
+			// plot the instruction flow edge
+			for (edge_list::iterator edge_iter = inst_edges.begin(), edge_end = inst_edges.end(); edge_iter != edge_end; ++edge_iter) {
+				file << "\tNode" << edge_iter->first << " -> Node" << edge_iter->second << "\n";
 			}
-			//将data flow的边dump
+			// plot the data flow edge
 			file << "edge [color=red]" << "\n";
-			for (edge_list::iterator edge = edges.begin(), edge_end = edges.end(); edge != edge_end; ++edge) {
-				file << "\tNode" << edge->first << " -> Node" << edge->second << "\n";
+			for (edge_list::iterator edge_iter = edges.begin(), edge_end = edges.end(); edge_iter != edge_end; ++edge_iter) {
+				file << "\tNode" << edge_iter->first << " -> Node" << edge_iter->second << "\n";
 			}
 			file << "}\n";
 			file.close();

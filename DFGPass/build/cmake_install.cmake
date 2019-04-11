@@ -1,4 +1,4 @@
-# Install script for directory: /home/leon/Desktop/pass/DFGPass
+# Install script for directory: /home/leon/Desktop/pass/CFG&DFG/DFGPass
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/leon/Desktop/pass/DFGPass/build/DFG/cmake_install.cmake")
+  include("/home/leon/Desktop/pass/CFG&DFG/DFGPass/build/DFG/cmake_install.cmake")
 
 endif()
 
@@ -51,5 +51,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/leon/Desktop/pass/DFGPass/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/leon/Desktop/pass/CFG&DFG/DFGPass/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

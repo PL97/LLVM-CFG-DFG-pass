@@ -48,10 +48,10 @@ RM = /home/tools/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leon/Desktop/pass/CFGPass
+CMAKE_SOURCE_DIR = "/home/leon/Desktop/pass/CFG&DFG/CFGPass"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leon/Desktop/pass/CFGPass/build
+CMAKE_BINARY_DIR = "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/leon/Desktop/pass/CFGPass/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/leon/Desktop/pass/CFGPass/build/CMakeFiles /home/leon/Desktop/pass/CFGPass/build/llvm_CFGPass/CMakeFiles/progress.marks
-	cd /home/leon/Desktop/pass/CFGPass/build && $(MAKE) -f CMakeFiles/Makefile2 llvm_CFGPass/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leon/Desktop/pass/CFGPass/build/CMakeFiles 0
+	cd "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build" && $(CMAKE_COMMAND) -E cmake_progress_start "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build/CMakeFiles" "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build/llvm_CFGPass/CMakeFiles/progress.marks"
+	cd "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build" && $(MAKE) -f CMakeFiles/Makefile2 llvm_CFGPass/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/leon/Desktop/pass/CFGPass/build && $(MAKE) -f CMakeFiles/Makefile2 llvm_CFGPass/clean
+	cd "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build" && $(MAKE) -f CMakeFiles/Makefile2 llvm_CFGPass/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/leon/Desktop/pass/CFGPass/build && $(MAKE) -f CMakeFiles/Makefile2 llvm_CFGPass/preinstall
+	cd "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build" && $(MAKE) -f CMakeFiles/Makefile2 llvm_CFGPass/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/leon/Desktop/pass/CFGPass/build && $(MAKE) -f CMakeFiles/Makefile2 llvm_CFGPass/preinstall
+	cd "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build" && $(MAKE) -f CMakeFiles/Makefile2 llvm_CFGPass/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/leon/Desktop/pass/CFGPass/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build" && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 llvm_CFGPass/CMakeFiles/LLVMCFG.dir/rule:
-	cd /home/leon/Desktop/pass/CFGPass/build && $(MAKE) -f CMakeFiles/Makefile2 llvm_CFGPass/CMakeFiles/LLVMCFG.dir/rule
+	cd "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build" && $(MAKE) -f CMakeFiles/Makefile2 llvm_CFGPass/CMakeFiles/LLVMCFG.dir/rule
 .PHONY : llvm_CFGPass/CMakeFiles/LLVMCFG.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ LLVMCFG: llvm_CFGPass/CMakeFiles/LLVMCFG.dir/rule
 
 # fast build rule for target.
 LLVMCFG/fast:
-	cd /home/leon/Desktop/pass/CFGPass/build && $(MAKE) -f llvm_CFGPass/CMakeFiles/LLVMCFG.dir/build.make llvm_CFGPass/CMakeFiles/LLVMCFG.dir/build
+	cd "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build" && $(MAKE) -f llvm_CFGPass/CMakeFiles/LLVMCFG.dir/build.make llvm_CFGPass/CMakeFiles/LLVMCFG.dir/build
 .PHONY : LLVMCFG/fast
 
 CFGPass.o: CFGPass.cpp.o
@@ -131,7 +131,7 @@ CFGPass.o: CFGPass.cpp.o
 
 # target to build an object file
 CFGPass.cpp.o:
-	cd /home/leon/Desktop/pass/CFGPass/build && $(MAKE) -f llvm_CFGPass/CMakeFiles/LLVMCFG.dir/build.make llvm_CFGPass/CMakeFiles/LLVMCFG.dir/CFGPass.cpp.o
+	cd "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build" && $(MAKE) -f llvm_CFGPass/CMakeFiles/LLVMCFG.dir/build.make llvm_CFGPass/CMakeFiles/LLVMCFG.dir/CFGPass.cpp.o
 .PHONY : CFGPass.cpp.o
 
 CFGPass.i: CFGPass.cpp.i
@@ -140,7 +140,7 @@ CFGPass.i: CFGPass.cpp.i
 
 # target to preprocess a source file
 CFGPass.cpp.i:
-	cd /home/leon/Desktop/pass/CFGPass/build && $(MAKE) -f llvm_CFGPass/CMakeFiles/LLVMCFG.dir/build.make llvm_CFGPass/CMakeFiles/LLVMCFG.dir/CFGPass.cpp.i
+	cd "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build" && $(MAKE) -f llvm_CFGPass/CMakeFiles/LLVMCFG.dir/build.make llvm_CFGPass/CMakeFiles/LLVMCFG.dir/CFGPass.cpp.i
 .PHONY : CFGPass.cpp.i
 
 CFGPass.s: CFGPass.cpp.s
@@ -149,7 +149,7 @@ CFGPass.s: CFGPass.cpp.s
 
 # target to generate assembly for a file
 CFGPass.cpp.s:
-	cd /home/leon/Desktop/pass/CFGPass/build && $(MAKE) -f llvm_CFGPass/CMakeFiles/LLVMCFG.dir/build.make llvm_CFGPass/CMakeFiles/LLVMCFG.dir/CFGPass.cpp.s
+	cd "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build" && $(MAKE) -f llvm_CFGPass/CMakeFiles/LLVMCFG.dir/build.make llvm_CFGPass/CMakeFiles/LLVMCFG.dir/CFGPass.cpp.s
 .PHONY : CFGPass.cpp.s
 
 # Help Target
@@ -175,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/leon/Desktop/pass/CFGPass/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd "/home/leon/Desktop/pass/CFG&DFG/CFGPass/build" && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

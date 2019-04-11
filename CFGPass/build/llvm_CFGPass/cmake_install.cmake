@@ -1,4 +1,4 @@
-# Install script for directory: /home/leon/Desktop/pass/CFGPass/llvm_CFGPass
+# Install script for directory: /home/leon/Desktop/pass/CFG&DFG/CFGPass/llvm_CFGPass
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

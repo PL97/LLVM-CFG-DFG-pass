@@ -1,4 +1,4 @@
-# Install script for directory: /home/leon/Desktop/pass/DFGPass/DFG
+# Install script for directory: /home/leon/Desktop/pass/CFG&DFG/DFGPass/DFG
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

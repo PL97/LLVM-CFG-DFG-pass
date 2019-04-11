@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/leon/Desktop/pass/DFGPass/DFG/DFG.cpp
+/home/leon/Desktop/pass/CFG&DFG/DFGPass/DFG/DFG.cpp
 llvm/IR/Function.h
 -
 llvm/IR/BasicBlock.h

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/leon/Desktop/pass/CFGPass/llvm_CFGPass/CFGPass.cpp
+/home/leon/Desktop/pass/CFG&DFG/CFGPass/llvm_CFGPass/CFGPass.cpp
 llvm/IR/BasicBlock.h
 -
 llvm/IR/Function.h
@@ -23,11 +23,7 @@ llvm/Analysis/CFG.h
 -
 stdio.h
 -
-map
--
-vector
--
-string
+list
 -
 
 /opt/llvm/include/llvm-c/DataTypes.h

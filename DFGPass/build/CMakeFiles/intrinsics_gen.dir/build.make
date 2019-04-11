@@ -43,10 +43,10 @@ RM = /home/tools/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leon/Desktop/pass/DFGPass
+CMAKE_SOURCE_DIR = "/home/leon/Desktop/pass/CFG&DFG/DFGPass"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leon/Desktop/pass/DFGPass/build
+CMAKE_BINARY_DIR = "/home/leon/Desktop/pass/CFG&DFG/DFGPass/build"
 
 # Utility rule file for intrinsics_gen.
 
@@ -67,6 +67,6 @@ CMakeFiles/intrinsics_gen.dir/clean:
 .PHONY : CMakeFiles/intrinsics_gen.dir/clean
 
 CMakeFiles/intrinsics_gen.dir/depend:
-	cd /home/leon/Desktop/pass/DFGPass/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/leon/Desktop/pass/DFGPass /home/leon/Desktop/pass/DFGPass /home/leon/Desktop/pass/DFGPass/build /home/leon/Desktop/pass/DFGPass/build /home/leon/Desktop/pass/DFGPass/build/CMakeFiles/intrinsics_gen.dir/DependInfo.cmake --color=$(COLOR)
+	cd "/home/leon/Desktop/pass/CFG&DFG/DFGPass/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/leon/Desktop/pass/CFG&DFG/DFGPass" "/home/leon/Desktop/pass/CFG&DFG/DFGPass" "/home/leon/Desktop/pass/CFG&DFG/DFGPass/build" "/home/leon/Desktop/pass/CFG&DFG/DFGPass/build" "/home/leon/Desktop/pass/CFG&DFG/DFGPass/build/CMakeFiles/intrinsics_gen.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/intrinsics_gen.dir/depend
 

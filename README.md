@@ -6,17 +6,29 @@ We have already bulid the file, so you cna use it directly as long as the follow
 + you pc has already installed llvm & clang
 + graphviz installed on your pc (use ***sudo apt-get install graphviz graphviz-doc*** if you do not possess one)
 
-
+### 1. build the project
+```bash
+	cd CFGPass/build
+	cmake ..
+	make
+	
+	cd DFGPass/build
+	cmake ..
+	make
+```
+### 2. run the test case
 use the bash command to test our passes
 ```bash
-  sh testDFGPass.sh
-  sh testCFGPass.sh
+	sh testDFGPass.sh
+	sh testCFGPass.sh
 ```
 the result is based on the c code: ***test.c***
 
-<img align = "center" width = '300' height = '300' href = 'CFG.png'>
-<div align = "center">fig1: CFG for test.c</div>
+<div align="center"><img width = '400' height = '400' src = 'CFG.png'></div>
+<div align="center">fig1: CFG for test.c</div>
 
-
-<img align = "center" width = '300' height = '300' href = 'DFG.png'>
-<div align = "center">fig1: DFG for test.c</di>
+<br>
+<br>
+<br>
+<div align="center"><img width = '500' height = '500' src = 'DFG.png'></div>
+<div align="center">fig1: DFG for test.c</di>
