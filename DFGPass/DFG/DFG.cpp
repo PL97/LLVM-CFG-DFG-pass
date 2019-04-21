@@ -8,30 +8,176 @@
 #include <llvm/IR/Use.h>
 #include <llvm/Analysis/CFG.h>
 #include <list>
+#include<vector>
+#include<string>
+#include<set>
+#include<map>
+
+using std::string;
+using std::vector;
+using std::set;
+using std::pair;
+using std::map;
 
 using namespace llvm;
 namespace {
+
+	struct Edge
+	{
+		int v_from;
+		int v_to;
+		Edge* in_edge;
+		Edge* out_edge;
+
+		Edge(int f, int t, Edge* ie, Edge* oe)
+		{
+			v_from = f;
+			v_to = t;
+			in_edge = ie;
+			out_edge = oe;
+		}
+	};
+
+	struct Vertex
+	{
+		Edge* first_in;
+		Edge* first_out;
+		Value* va;
+
+		Vertex(Edge* fi, Edge* fo, Value* v) {
+			first_in = fi;
+			first_out = fo;
+			va = v;
+		}
+	};
+
+	struct Graph
+	{
+		vector<Vertex*> v;
+		vector<Value*> head;
+
+	};
+
+	void getGraphInfo(Graph* g)
+	{
+		for (auto iter = g->v.begin(), iter_e = g->v.end(); iter != iter_e; iter++)
+		{
+			Edge* p = (*iter)->first_in;
+			while (p->in_edge)
+			{
+				errs() << p->in_edge->v_from << '\n';
+				p = p->in_edge;
+			}
+		}
+	}
+
+	int find(vector<Vertex*> l, Value* e)
+	{
+		int count = 0;
+		for (auto iter = l.begin(), iter_end = l.end(); iter != iter_end; iter++)
+		{
+			if ((*iter)->va == e) {
+				return count;
+			}
+			//errs() << (*iter)->va << '\n';
+			count++;
+		}
+		return -1;
+	}
+
+	void insert(Graph *G, pair<Value*, Value*>e)
+	{
+		Value* from = e.first;
+		Value* to = e.second;
+		int from_idx, to_idx;
+
+		// add vertex
+		if ((from_idx = find(G->v, from)) == -1)
+		{
+			G->v.push_back(new Vertex(NULL, NULL, from));
+			from_idx = G->v.size()-1;
+		}
+		if ((to_idx = find(G->v, to)) == -1)
+		{
+			G->v.push_back(new Vertex(NULL, NULL, to));
+			to_idx = G->v.size()-1;
+		}
+
+		// add edge
+		Edge* p = G->v[from_idx]->first_out, *new_edge = NULL;
+		if (p != NULL) {
+			while (p->out_edge && p->v_to != to_idx) 
+			{
+				p = p->out_edge;
+			}
+			if (p->v_to == to_idx) 
+			{
+				new_edge = p;
+			}
+			else
+			{
+				new_edge = new Edge(from_idx, to_idx, NULL, NULL);
+				p->out_edge = new_edge;
+			}
+		}
+		else
+		{
+			new_edge = new Edge(from_idx, to_idx, NULL, NULL);
+			G->v[from_idx]->first_out = new_edge;
+		}
+
+		p = G->v[to_idx]->first_in;
+		if (p != NULL) {
+			while (p->in_edge && p->v_from != from_idx) 
+			{
+				p = p->in_edge;
+			}
+			if (p->v_from != from_idx)
+			{
+				p->in_edge = new_edge;
+			}
+		}
+		else
+		{
+			G->v[to_idx]->first_in = new_edge;
+		}
+	}
+
+	set<pair<int, int>> mark;
+
+	void DFS(Edge* v, Graph* G)
+	{
+		mark.clear();
+		Edge* p = v;
+		while (p)
+		{
+			if (mark.find(pair<int, int>(p->v_from, p->v_to)) == mark.end()) 
+			{
+				mark.insert(pair<int, int>(p->v_from, p->v_to));
+				errs() << *G->v[p->v_from]->va << "->" << *G->v[p->v_to]->va << '\n';
+				errs() << '\n';
+				DFS(G->v[p->v_to]->first_out, G);
+			}
+			p = p->out_edge;
+		}
+	}
+
+
 	struct DFGPass : public FunctionPass {
 	public:
-		// node defination
-		typedef Value* node;
-		//edge, between nodes
-		typedef std::pair<node, node> edge;
-		//set of nodes
-		typedef std::list<node> node_list;
-		//set of edge
-		typedef std::list<edge> edge_list;
 		static char ID;
-		edge_list inst_edges;  //store the edge of the control flow
-		edge_list edges;    //store the edge of the data flow
-		node_list nodes;	//store all the node(includes instructions and operand)
+		map<string, Graph*> DFGs;
+		map<string, Graph*> CFGs;
 
 		DFGPass() : FunctionPass(ID) {}
 
 		bool runOnFunction(Function &F) override {
-			edges.clear();
-			nodes.clear();
-			inst_edges.clear();
+			Graph* control_flow_G = new Graph();
+			Graph* data_flow_G = new Graph();
+			DFGs.insert(pair<string, Graph*>(F.getName().str(), data_flow_G));
+			CFGs.insert(pair<string, Graph*>(F.getName().str(), control_flow_G));
+
+			control_flow_G->head.push_back(&*(F.begin())->begin());
 			for (Function::iterator BB = F.begin(), BEnd = F.end(); BB != BEnd; ++BB) {
 				BasicBlock *curBB = &*BB;
 				for (BasicBlock::iterator II = curBB->begin(), IEnd = curBB->end(); II != IEnd; ++II) {
@@ -43,8 +189,7 @@ namespace {
 						{
 							LoadInst* linst = dyn_cast<LoadInst>(curII);
 							Value* loadValPtr = linst->getPointerOperand();
-							nodes.push_back(loadValPtr);
-							edges.push_back(edge(loadValPtr, curII));
+							insert(data_flow_G, pair<Value*, Value*>(loadValPtr, curII));
 							break;
 						}
 						// for the case of store operation, both of the pointer and value should be recoded
@@ -52,10 +197,9 @@ namespace {
 							StoreInst* sinst = dyn_cast<StoreInst>(curII);
 							Value* storeValPtr = sinst->getPointerOperand();
 							Value* storeVal = sinst->getValueOperand();
-							nodes.push_back(storeVal);
-							nodes.push_back(storeValPtr);
-							edges.push_back(edge(storeVal, curII));
-							edges.push_back(edge(curII, storeValPtr));
+							insert(data_flow_G, pair<Value*, Value*>(storeVal, curII));
+							insert(data_flow_G, pair<Value*, Value*>(curII, storeValPtr));
+							data_flow_G->head.push_back(storeVal);
 							break;
 						}
 						// for other operation, we get all the operand point to the current instruction
@@ -65,7 +209,7 @@ namespace {
 								Instruction* tempIns;
 								if (dyn_cast<Instruction>(*op))
 								{
-									edges.push_back(edge(op->get(), curII));
+									insert(data_flow_G, pair<Value*, Value*>(op->get(), curII));
 								}
 							}
 							break;
@@ -73,93 +217,73 @@ namespace {
 
 					}
 					BasicBlock::iterator next = II;
-					nodes.push_back(curII);
 					++next;
 					if (next != IEnd) {
-						inst_edges.push_back(edge(curII, &*next));
+						insert(control_flow_G, pair<Value*, Value*>(curII, &*next));
 					}
 				}
 
 				Instruction* terminator = curBB->getTerminator();
 				for (BasicBlock* sucBB : successors(curBB)) {
 					Instruction* first = &*(sucBB->begin());
-					inst_edges.push_back(edge(terminator, first));
+					insert(control_flow_G, pair<Value*, Value*>(terminator, first));
 				}
 			}
-			// writeFile(F);
-			WriteFileSciling(F);
+			writeFileByGraph(F);
+
 			return false;
 		}
 
-		void writeFile(Function &F){
+		void DFS_plot(Edge* v, Graph* G, raw_fd_ostream& file)
+		{
+			Edge* p = v;
+			while (p)
+			{
+				if (mark.find(pair<int, int>(p->v_from, p->v_to)) == mark.end()) 
+				{
+					mark.insert(pair<int, int>(p->v_from, p->v_to));
+					file << "\tNode" << G->v[p->v_from]->va << " -> Node" << G->v[p->v_to]->va << "\n";
+					DFS_plot(G->v[p->v_to]->first_out, G, file);
+				}
+				p = p->out_edge;
+			}
+		}
+
+		void writeFileByGraph(Function &F){
 			std::error_code error;
 			enum sys::fs::OpenFlags F_None;
 			StringRef fileName(F.getName().str() + ".dot");
 			raw_fd_ostream file(fileName, error, F_None);
+			Graph* data_flow_G =  DFGs[F.getName().str()];
+			Graph* control_flow_G = CFGs[F.getName().str()];
+
 			file << "digraph \"DFG for'" + F.getName() + "\' function\" {\n";
-			for (node_list::iterator node_iter = nodes.begin(), node_end = nodes.end(); node_iter != node_end; ++node_iter) 
+			for (auto node_iter = DFGs[F.getName()]->v.begin(), node_end = DFGs[F.getName()]->v.end(); node_iter != node_end; ++node_iter) 
 			{
-				if(isa<Instruction>(*node_iter))
+				Value* p = (*node_iter)->va;
+				if(isa<Instruction>(*p))
 				{
-					file << "\tNode" << *node_iter << "[shape=record, label=\"" << **node_iter << "\"];\n";
+					file << "\tNode" << p << "[shape=record, label=\"" << *p << "\"];\n";
 				}
 				else
 				{
-					file << "\tNode" << *node_iter << "[shape=ellipse, label=\"" << **node_iter << "\\l" << *node_iter << "\"];\n";
+					file << "\tNode" << p << "[shape=ellipse, label=\"" << *p << "\\l" << p << "\"];\n";
 				}
 			}
 			// plot the instruction flow edge
-			for (edge_list::iterator edge_iter = inst_edges.begin(), edge_end = inst_edges.end(); edge_iter != edge_end; ++edge_iter) {
-				file << "\tNode" << edge_iter->first << " -> Node" << edge_iter->second << "\n";
+			mark.clear();
+			for(auto iter = control_flow_G->head.begin(), iter_end = control_flow_G->head.end(); iter != iter_end; iter++){
+				DFS_plot(control_flow_G->v[find(control_flow_G->v, *iter)]->first_out, control_flow_G, file);
 			}
+
 			// plot the data flow edge
 			file << "edge [color=red]" << "\n";
-			for (edge_list::iterator edge_iter = edges.begin(), edge_end = edges.end(); edge_iter != edge_end; ++edge_iter) {
-				file << "\tNode" << edge_iter->first << " -> Node" << edge_iter->second << "\n";
+			mark.clear();
+			for(auto iter = data_flow_G->head.begin(), iter_end = data_flow_G->head.end(); iter != iter_end; iter++){
+				DFS_plot(data_flow_G->v[find(data_flow_G->v, *iter)]->first_out, data_flow_G, file);
 			}
 			file << "}\n";
 			file.close();
-		}
-
-		// void getSciling(Function &F){
-		// 	std::map<node, edge_list> scilingMap;
-		// 	for (node_list::iterator node_iter = nodes.begin(), node_end = nodes.end(); node != node_end; ++node_iter) 
-		// 	{
-		// 		if(isa<StoreInst>(*node_iter))
-		// 		{
-		// 			scilingMap[node] = edge_list();
-		// 			for (edge_list::iterator edge_iter = edges.begin(), edge_end = edges.end(); edge_iter != edge_end; ++edge_iter){
-		// 				if
-		// 			}
-		// 		}
-		// 	}
-		// }
-
-		void WriteFileSciling(Function &F){
-			std::error_code error;
-			enum sys::fs::OpenFlags F_None;
-			StringRef fileName(F.getName().str() + ".dot");
-			raw_fd_ostream file(fileName, error, F_None);
-			file << "digraph \"DFG for'" + F.getName() + "\' function\" {\n";
-			for (node_list::iterator node_iter = nodes.begin(), node_end = nodes.end(); node_iter != node_end; ++node_iter) 
-			{
-				if(isa<Instruction>(*node_iter))
-				{
-					file << "\tNode" << *node_iter << "[shape=record, label=\"" << **node_iter << "\"];\n";
-				}
-				else
-				{
-					file << "\tNode" << *node_iter << "[shape=ellipse, label=\"" << **node_iter << "\\l" << *node_iter << "\"];\n";
-
-				}
-			}
-			file << "edge [color=red]" << "\n";
-			for (edge_list::iterator edge_iter = edges.begin(), edge_end = edges.end(); edge_iter != edge_end; ++edge_iter) {
-				file << "\tNode" << edge_iter->first << " -> Node" << edge_iter->second << "\n";
-			}
-			file << "}\n";
-			file.close();
-
 		}
 
 	};

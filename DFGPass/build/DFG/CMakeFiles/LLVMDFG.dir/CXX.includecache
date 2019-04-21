@@ -27,6 +27,14 @@ llvm/Analysis/CFG.h
 -
 list
 -
+vector
+-
+string
+-
+set
+-
+map
+-
 
 /opt/llvm/include/llvm-c/DataTypes.h
 cmath
