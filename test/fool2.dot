@@ -1,42 +1,18 @@
 digraph "DFG for'fool2' function" {
-	Node0x556cae15e028[shape=record, label="  %2 = alloca i32, align 4"];
-	Node0x556cae15de40[shape=ellipse, label="i32 %0\l0x556cae15de40"];
-	Node0x556cae15e028[shape=record, label="  %2 = alloca i32, align 4"];
-	Node0x556cae15e2e0[shape=record, label="  store i32 %0, i32* %2, align 4"];
-	Node0x556cae15e028[shape=record, label="  %2 = alloca i32, align 4"];
-	Node0x556cae15e348[shape=record, label="  %3 = load i32, i32* %2, align 4"];
-	Node0x556cae15e3a8[shape=record, label="  ret i32 %3"];
+	Node0x55ae7d9b66d0[shape=ellipse, label="i32 %0\l0x55ae7d9b66d0"];
+	Node0x55ae7d9b6e90[shape=record, label="  store i32 %0, i32* %2, align 4"];
+	Node0x55ae7d9b67a8[shape=record, label="  %2 = alloca i32, align 4"];
+	Node0x55ae7d9b6ef8[shape=record, label="  %3 = load i32, i32* %2, align 4"];
+	Node0x55ae7d9b6fa0[shape=record, label="  %4 = mul nsw i32 %3, 2"];
+	Node0x55ae7d9b7048[shape=record, label="  ret i32 %4"];
+	Node0x55ae7d9b67a8 -> Node0x55ae7d9b6e90
+	Node0x55ae7d9b6e90 -> Node0x55ae7d9b6ef8
+	Node0x55ae7d9b6ef8 -> Node0x55ae7d9b6fa0
+	Node0x55ae7d9b6fa0 -> Node0x55ae7d9b7048
 edge [color=red]
-	Node0x556cae15de40 -> Node0x556cae15e2e0
-	Node0x556cae15e2e0 -> Node0x556cae15e028
-	Node0x556cae15e028 -> Node0x556cae15e348
-	Node0x556cae15e348 -> Node0x556cae15e3a8
-}
-digraph "DFG for'fool2' function" {
-	Node0x55c6866e4028[shape=record, label="  %2 = alloca i32, align 4"];
-	Node0x55c6866e3e40[shape=ellipse, label="i32 %0\l0x55c6866e3e40"];
-	Node0x55c6866e4028[shape=record, label="  %2 = alloca i32, align 4"];
-	Node0x55c6866e42e0[shape=record, label="  store i32 %0, i32* %2, align 4"];
-	Node0x55c6866e4028[shape=record, label="  %2 = alloca i32, align 4"];
-	Node0x55c6866e4348[shape=record, label="  %3 = load i32, i32* %2, align 4"];
-	Node0x55c6866e43a8[shape=record, label="  ret i32 %3"];
-edge [color=red]
-	Node0x55c6866e3e40 -> Node0x55c6866e42e0
-	Node0x55c6866e42e0 -> Node0x55c6866e4028
-	Node0x55c6866e4028 -> Node0x55c6866e4348
-	Node0x55c6866e4348 -> Node0x55c6866e43a8
-}
-digraph "DFG for'fool2' function" {
-	Node0x55763dc90028[shape=record, label="  %2 = alloca i32, align 4"];
-	Node0x55763dc8fe40[shape=ellipse, label="i32 %0\l0x55763dc8fe40"];
-	Node0x55763dc90028[shape=record, label="  %2 = alloca i32, align 4"];
-	Node0x55763dc902e0[shape=record, label="  store i32 %0, i32* %2, align 4"];
-	Node0x55763dc90028[shape=record, label="  %2 = alloca i32, align 4"];
-	Node0x55763dc90348[shape=record, label="  %3 = load i32, i32* %2, align 4"];
-	Node0x55763dc903a8[shape=record, label="  ret i32 %3"];
-edge [color=red]
-	Node0x55763dc8fe40 -> Node0x55763dc902e0
-	Node0x55763dc902e0 -> Node0x55763dc90028
-	Node0x55763dc90028 -> Node0x55763dc90348
-	Node0x55763dc90348 -> Node0x55763dc903a8
+	Node0x55ae7d9b66d0 -> Node0x55ae7d9b6e90
+	Node0x55ae7d9b6e90 -> Node0x55ae7d9b67a8
+	Node0x55ae7d9b67a8 -> Node0x55ae7d9b6ef8
+	Node0x55ae7d9b6ef8 -> Node0x55ae7d9b6fa0
+	Node0x55ae7d9b6fa0 -> Node0x55ae7d9b7048
 }

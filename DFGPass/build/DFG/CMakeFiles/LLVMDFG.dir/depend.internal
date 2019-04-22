@@ -44,14 +44,20 @@ DFG/CMakeFiles/LLVMDFG.dir/DFG.cpp.o
  /opt/llvm/include/llvm/IR/BasicBlock.h
  /opt/llvm/include/llvm/IR/CFG.h
  /opt/llvm/include/llvm/IR/CallingConv.h
+ /opt/llvm/include/llvm/IR/Comdat.h
  /opt/llvm/include/llvm/IR/Constant.h
  /opt/llvm/include/llvm/IR/Constants.h
+ /opt/llvm/include/llvm/IR/DataLayout.h
  /opt/llvm/include/llvm/IR/DebugLoc.h
  /opt/llvm/include/llvm/IR/DerivedTypes.h
  /opt/llvm/include/llvm/IR/DiagnosticHandler.h
  /opt/llvm/include/llvm/IR/Function.h
+ /opt/llvm/include/llvm/IR/GlobalAlias.h
+ /opt/llvm/include/llvm/IR/GlobalIFunc.h
+ /opt/llvm/include/llvm/IR/GlobalIndirectSymbol.h
  /opt/llvm/include/llvm/IR/GlobalObject.h
  /opt/llvm/include/llvm/IR/GlobalValue.h
+ /opt/llvm/include/llvm/IR/GlobalVariable.h
  /opt/llvm/include/llvm/IR/InstrTypes.h
  /opt/llvm/include/llvm/IR/Instruction.def
  /opt/llvm/include/llvm/IR/Instruction.h
@@ -59,7 +65,9 @@ DFG/CMakeFiles/LLVMDFG.dir/DFG.cpp.o
  /opt/llvm/include/llvm/IR/LLVMContext.h
  /opt/llvm/include/llvm/IR/Metadata.def
  /opt/llvm/include/llvm/IR/Metadata.h
+ /opt/llvm/include/llvm/IR/Module.h
  /opt/llvm/include/llvm/IR/OperandTraits.h
+ /opt/llvm/include/llvm/IR/ProfileSummary.h
  /opt/llvm/include/llvm/IR/SymbolTableListTraits.h
  /opt/llvm/include/llvm/IR/TrackingMDRef.h
  /opt/llvm/include/llvm/IR/Type.h
@@ -79,6 +87,7 @@ DFG/CMakeFiles/LLVMDFG.dir/DFG.cpp.o
  /opt/llvm/include/llvm/Support/AtomicOrdering.h
  /opt/llvm/include/llvm/Support/CBindingWrapping.h
  /opt/llvm/include/llvm/Support/Casting.h
+ /opt/llvm/include/llvm/Support/CodeGen.h
  /opt/llvm/include/llvm/Support/CommandLine.h
  /opt/llvm/include/llvm/Support/Compiler.h
  /opt/llvm/include/llvm/Support/DataTypes.h

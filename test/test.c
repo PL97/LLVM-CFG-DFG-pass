@@ -1,22 +1,11 @@
 #include<stdio.h>
 
-//int fool2();
-
-//int fool(int d){
-//	return fool2(d);
-//}
-
-//int fool2(int c){
-//	return c;
-//}
+int add(int c, int e){
+	return c+e;
+}
 
 int main(){
-	int b = 19;
-//	int b = fool(a);
-	if(b>0){
-		return b;
-	}
-	else{
-		return 0;
-	}	
+	int a = 19, e = 1;
+	int b = add(a, e);
+	return b;	
 }

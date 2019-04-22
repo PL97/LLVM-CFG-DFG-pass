@@ -1,4 +1,33 @@
-digraph "DFG for'main' function" {
+digraph "DFG for all" {
+	Node0x55e6368a36d0[shape=ellipse, label="i32 %0\l0x55e6368a36d0"];
+	Node0x55e6368a3f70[shape=record, label="  store i32 %0, i32* %3, align 4"];
+	Node0x55e6368a3808[shape=record, label="  %3 = alloca i32, align 4"];
+	Node0x55e6368a36f8[shape=ellipse, label="i32 %1\l0x55e6368a36f8"];
+	Node0x55e6368a3ff0[shape=record, label="  store i32 %1, i32* %4, align 4"];
+	Node0x55e6368a3ea8[shape=record, label="  %4 = alloca i32, align 4"];
+	Node0x55e6368a4058[shape=record, label="  %5 = load i32, i32* %3, align 4"];
+	Node0x55e6368a40b8[shape=record, label="  %6 = load i32, i32* %4, align 4"];
+	Node0x55e6368a4130[shape=record, label="  %7 = add nsw i32 %5, %6"];
+	Node0x55e6368a4188[shape=record, label="  ret i32 %7"];
+edge [color=black]
+	Node0x55e6368a3808 -> Node0x55e6368a3ea8
+	Node0x55e6368a3ea8 -> Node0x55e6368a3f70
+	Node0x55e6368a3f70 -> Node0x55e6368a3ff0
+	Node0x55e6368a3ff0 -> Node0x55e6368a4058
+	Node0x55e6368a4058 -> Node0x55e6368a40b8
+	Node0x55e6368a40b8 -> Node0x55e6368a4130
+	Node0x55e6368a4130 -> Node0x55e6368a4188
+edge [color=red]
+	Node0x55e6368a36d0 -> Node0x55e6368a3f70
+	Node0x55e6368a3f70 -> Node0x55e6368a3808
+	Node0x55e6368a3808 -> Node0x55e6368a4058
+	Node0x55e6368a4058 -> Node0x55e6368a4130
+	Node0x55e6368a4130 -> Node0x55e6368a4188
+edge [color=blue]
+	Node0x55e6368a36f8 -> Node0x55e6368a3ff0
+	Node0x55e6368a3ff0 -> Node0x55e6368a3ea8
+	Node0x55e6368a3ea8 -> Node0x55e6368a40b8
+	Node0x55e6368a40b8 -> Node0x55e6368a4130
 	Node0x55e6368a43b0[shape=ellipse, label="i32 0\l0x55e6368a43b0"];
 	Node0x55e6368a4520[shape=record, label="  store i32 0, i32* %1, align 4"];
 	Node0x55e6368a42e8[shape=record, label="  %1 = alloca i32, align 4"];
@@ -15,6 +44,7 @@ digraph "DFG for'main' function" {
 	Node0x55e6368a4458[shape=record, label="  %4 = alloca i32, align 4"];
 	Node0x55e6368a48e8[shape=record, label="  %8 = load i32, i32* %4, align 4"];
 	Node0x55e6368a49d8[shape=record, label="  ret i32 %8"];
+edge [color=black]
 	Node0x55e6368a42e8 -> Node0x55e6368a4368
 	Node0x55e6368a4368 -> Node0x55e6368a43f8
 	Node0x55e6368a43f8 -> Node0x55e6368a4458
@@ -30,6 +60,7 @@ digraph "DFG for'main' function" {
 edge [color=red]
 	Node0x55e6368a43b0 -> Node0x55e6368a4520
 	Node0x55e6368a4520 -> Node0x55e6368a42e8
+edge [color=blue]
 	Node0x55e6368a4570 -> Node0x55e6368a45d0
 	Node0x55e6368a45d0 -> Node0x55e6368a4368
 	Node0x55e6368a4368 -> Node0x55e6368a46b8
@@ -38,8 +69,10 @@ edge [color=red]
 	Node0x55e6368a4880 -> Node0x55e6368a4458
 	Node0x55e6368a4458 -> Node0x55e6368a48e8
 	Node0x55e6368a48e8 -> Node0x55e6368a49d8
+edge [color=cyan]
 	Node0x55e6368a3e60 -> Node0x55e6368a4650
 	Node0x55e6368a4650 -> Node0x55e6368a43f8
 	Node0x55e6368a43f8 -> Node0x55e6368a4718
 	Node0x55e6368a4718 -> Node0x55e6368a47a8
+edge [color=orange]
 }
