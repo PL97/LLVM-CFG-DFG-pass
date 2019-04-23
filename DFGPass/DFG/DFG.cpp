@@ -1,169 +1,7 @@
-#include <llvm/IR/Module.h>
-#include <llvm/IR/Function.h>
-#include <llvm/IR/BasicBlock.h>
-#include <llvm/Pass.h>
-#include <llvm/IR/Value.h>
-#include <llvm/IR/Instruction.h>
-#include <llvm/IR/Instructions.h>
-#include <llvm/Support/raw_ostream.h>
-#include <llvm/IR/Use.h>
-#include <llvm/Analysis/CFG.h>
-#include <list>
-#include<vector>
-#include<string>
-#include<set>
-#include<map>
-
-using std::string;
-using std::vector;
-using std::set;
-using std::pair;
-using std::map;
+#include"graph.h"
 
 using namespace llvm;
 namespace {
-
-	struct Edge
-	{
-		int v_from;
-		int v_to;
-		Edge* in_edge;
-		Edge* out_edge;
-
-		Edge(int f, int t, Edge* ie, Edge* oe)
-		{
-			v_from = f;
-			v_to = t;
-			in_edge = ie;
-			out_edge = oe;
-		}
-	};
-
-	struct Vertex
-	{
-		Edge* first_in;
-		Edge* first_out;
-		Value* va;
-
-		Vertex(Edge* fi, Edge* fo, Value* v) {
-			first_in = fi;
-			first_out = fo;
-			va = v;
-		}
-	};
-
-	struct Graph
-	{
-		vector<Vertex*> v;
-		vector<Value*> head;
-		map<Value*, string> link;
-
-	};
-
-	void getGraphInfo(Graph* g)
-	{
-		for (auto iter = g->v.begin(), iter_e = g->v.end(); iter != iter_e; iter++)
-		{
-			Edge* p = (*iter)->first_in;
-			while (p->in_edge)
-			{
-				errs() << p->in_edge->v_from << '\n';
-				p = p->in_edge;
-			}
-		}
-	}
-
-	int find(vector<Vertex*> l, Value* e)
-	{
-		int count = 0;
-		for (auto iter = l.begin(), iter_end = l.end(); iter != iter_end; iter++)
-		{
-			if ((*iter)->va == e) {
-				return count;
-			}
-			//errs() << (*iter)->va << '\n';
-			count++;
-		}
-		return -1;
-	}
-
-	void insert(Graph *G, pair<Value*, Value*>e)
-	{
-		Value* from = e.first;
-		Value* to = e.second;
-		int from_idx, to_idx;
-
-		// add vertex
-		if ((from_idx = find(G->v, from)) == -1)
-		{
-			G->v.push_back(new Vertex(NULL, NULL, from));
-			from_idx = G->v.size()-1;
-		}
-		if ((to_idx = find(G->v, to)) == -1)
-		{
-			G->v.push_back(new Vertex(NULL, NULL, to));
-			to_idx = G->v.size()-1;
-		}
-
-		// add edge
-		Edge* p = G->v[from_idx]->first_out, *new_edge = NULL;
-		if (p != NULL) {
-			while (p->out_edge && p->v_to != to_idx) 
-			{
-				p = p->out_edge;
-			}
-			if (p->v_to == to_idx) 
-			{
-				new_edge = p;
-			}
-			else
-			{
-				new_edge = new Edge(from_idx, to_idx, NULL, NULL);
-				p->out_edge = new_edge;
-			}
-		}
-		else
-		{
-			new_edge = new Edge(from_idx, to_idx, NULL, NULL);
-			G->v[from_idx]->first_out = new_edge;
-		}
-
-		p = G->v[to_idx]->first_in;
-		if (p != NULL) {
-			while (p->in_edge && p->v_from != from_idx) 
-			{
-				p = p->in_edge;
-			}
-			if (p->v_from != from_idx)
-			{
-				p->in_edge = new_edge;
-			}
-		}
-		else
-		{
-			G->v[to_idx]->first_in = new_edge;
-		}
-	}
-
-	set<pair<int, int>> mark;
-
-	void DFS(Edge* v, Graph* G)
-	{
-		mark.clear();
-		Edge* p = v;
-		while (p)
-		{
-			if (mark.find(pair<int, int>(p->v_from, p->v_to)) == mark.end()) 
-			{
-				mark.insert(pair<int, int>(p->v_from, p->v_to));
-				errs() << *G->v[p->v_from]->va << "->" << *G->v[p->v_to]->va << '\n';
-				errs() << '\n';
-				DFS(G->v[p->v_to]->first_out, G);
-			}
-			p = p->out_edge;
-		}
-	}
-
 
 	struct DFGPass : public ModulePass {
 	public:
@@ -175,17 +13,14 @@ namespace {
 
 		bool runOnModule(Module &M) override {
 			for (Module::iterator iter_F = M.begin(), FEnd = M.end(); iter_F != FEnd; ++iter_F) {
-				for(auto iter = iter_F->arg_begin(), iter_end = iter_F->arg_end(); iter != iter_end; iter++){
-					errs()<<*iter<<'\n';
-				}
-				errs()<<iter_F->getName()<<"+++++++++++++"<<'\n';
 				Function *F = &*iter_F;
-				Graph* control_flow_G = new Graph();
-				Graph* data_flow_G = new Graph();
+				Graph* control_flow_G = new Graph(F);
+				Graph* data_flow_G = new Graph(F);
+				// F->viewCFG();
 				DFGs.insert(pair<string, Graph*>(F->getName().str(), data_flow_G));
 				CFGs.insert(pair<string, Graph*>(F->getName().str(), control_flow_G));
 
-				control_flow_G->head.push_back(&*(F->begin())->begin());
+				control_flow_G->head.push_back(pair<Value*, Value*>(&*(F->begin())->begin(), &*(F->begin())->begin()));
 				for (Function::iterator BB = F->begin(), BEnd = F->end(); BB != BEnd; ++BB) {
 					BasicBlock *curBB = &*BB;
 					for (BasicBlock::iterator II = curBB->begin(), IEnd = curBB->end(); II != IEnd; ++II) {
@@ -207,21 +42,26 @@ namespace {
 								Value* storeVal = sinst->getValueOperand();
 								insert(data_flow_G, pair<Value*, Value*>(storeVal, curII));
 								insert(data_flow_G, pair<Value*, Value*>(curII, storeValPtr));
-								data_flow_G->head.push_back(storeVal);
+								data_flow_G->head.push_back(pair<Value*, Value*>(storeValPtr, storeVal));
 								break;
+							}
+
+							case llvm::Instruction::Call: {
+								CallInst* cinst = dyn_cast<CallInst>(curII);
+								string f_name = cinst->getCalledFunction()->getName();
+								for(auto iter = DFGs[f_name]->F->arg_begin(), iter_end = DFGs[f_name]->F->arg_end(); iter != iter_end; iter++){
+									data_flow_G->link.push_back(pair<Value*, Value*>(cinst, iter));
+									errs()<<*cinst<<cinst<<"->"<<*iter<<iter<<"\n";
+									// insert(data_flow_G, pair<Value*, Value*>(cinst, iter));
+								}
+								if(!DFGs[f_name]->F->doesNotReturn()){
+									Value* ret_i = &*(--(--DFGs[f_name]->F->end())->end());
+									data_flow_G->link.push_back(pair<Value*, Value*>(ret_i, cinst));
+									// insert(data_flow_G, pair<Value*, Value*>(ret_i, cinst));
+								}
 							}
 							// for other operation, we get all the operand point to the current instruction
 							default: {
-								if(curII->getOpcode() == llvm::Instruction::Call){
-									CallInst* cinst = dyn_cast<CallInst>(curII);
-
-									// for(auto iter = cinst->arg_begin(), iter_end = cinst->arg_end(); iter != iter_end; iter++){
-									// 	errs()<<**iter<<'\n';
-									// }
-									data_flow_G->link.insert(pair<Value*, string>(cinst, cinst->getCalledFunction()->getName().str()));
-									// errs()<<cinst->getCalledFunction()->getName().str()<<'\n';
-									// errs()<<"++++++++++-----"<<'\n';
-								}
 								for (Instruction::op_iterator op = curII->op_begin(), opEnd = curII->op_end(); op != opEnd; ++op)
 								{
 									Instruction* tempIns;
@@ -232,7 +72,6 @@ namespace {
 								}
 								break;
 							}
-
 						}
 						BasicBlock::iterator next = II;
 						++next;
@@ -248,14 +87,11 @@ namespace {
 					}
 				}
 				writeFileByGraph(F);
-				for(auto iter = data_flow_G->link.begin(), iter_end = data_flow_G->link.end(); iter != iter_end; iter++){
-					errs()<<*(&*iter)->first<<'\n';
-					errs()<<(&*iter)->second<<'\n';
-					errs()<<"+++++++++++++++++++\n";
-				}
 			}
 
-			writeFileByGraphGloble();
+			// NOTWITHCFHG indicate the fianl graph represents no CFG information
+			writeFileByGraphGloble(NOTWITHCFG);
+			errs()<<"end\n";
 			return false;
 		}
 
@@ -298,20 +134,20 @@ namespace {
 			// plot the instruction flow edge
 			mark.clear();
 			for(auto iter = control_flow_G->head.begin(), iter_end = control_flow_G->head.end(); iter != iter_end; iter++){
-				DFS_plot(control_flow_G->v[find(control_flow_G->v, *iter)]->first_out, control_flow_G, file);
+				DFS_plot(control_flow_G->v[find(control_flow_G->v, iter->second)]->first_out, control_flow_G, file);
 			}
 
 			// plot the data flow edge
 			file << "edge [color=red]" << "\n";
 			mark.clear();
 			for(auto iter = data_flow_G->head.begin(), iter_end = data_flow_G->head.end(); iter != iter_end; iter++){
-				DFS_plot(data_flow_G->v[find(data_flow_G->v, *iter)]->first_out, data_flow_G, file);
+				DFS_plot(data_flow_G->v[find(data_flow_G->v, iter->second)]->first_out, data_flow_G, file);
 			}
 			file << "}\n";
 			file.close();
 		}
 
-		void writeFileByGraphGloble(){
+		void writeFileByGraphGloble(Mode m){
 			std::error_code error;
 			enum sys::fs::OpenFlags F_None;
 			StringRef fileName("all.dot");
@@ -321,7 +157,8 @@ namespace {
 			for(auto F_iter = DFGs.begin(), F_iter_end = DFGs.end(); F_iter != F_iter_end; F_iter++){
 				Graph* data_flow_G =  DFGs[F_iter->first];
 				Graph* control_flow_G = CFGs[F_iter->first];
-				for (auto node_iter = F_iter->second->v.begin(), node_end =  F_iter->second->v.end(); node_iter != node_end; ++node_iter) 
+				auto nodes = F_iter->second->v;
+				for (auto node_iter = nodes.begin(), node_end =  nodes.end(); node_iter != node_end; ++node_iter) 
 				{
 					Value* p = (*node_iter)->va;
 					if(isa<Instruction>(*p))
@@ -334,10 +171,12 @@ namespace {
 					}
 				}
 				// plot the instruction flow edge
-				file << "edge [color=black]" << "\n";
-				mark.clear();
-				for(auto iter = control_flow_G->head.begin(), iter_end = control_flow_G->head.end(); iter != iter_end; iter++){
-					DFS_plot(control_flow_G->v[find(control_flow_G->v, *iter)]->first_out, control_flow_G, file);
+				if(m != NOTWITHCFG){
+					file << "edge [color=black]" << "\n";
+					mark.clear();
+					for(auto iter = control_flow_G->head.begin(), iter_end = control_flow_G->head.end(); iter != iter_end; iter++){
+						DFS_plot(control_flow_G->v[find(control_flow_G->v, iter->second)]->first_out, control_flow_G, file);
+					}
 				}
 
 				// plot the data flow edge
@@ -346,7 +185,13 @@ namespace {
 				int count = 0;
 				for(auto iter = data_flow_G->head.begin(), iter_end = data_flow_G->head.end(); iter != iter_end; iter++){
 					file << "edge [color=" << color_set[count++] << "]" << "\n";
-					DFS_plot(data_flow_G->v[find(data_flow_G->v, *iter)]->first_out, data_flow_G, file);
+					DFS_plot(data_flow_G->v[find(data_flow_G->v, iter->second)]->first_out, data_flow_G, file);
+				}
+
+				for(auto iter = data_flow_G->link.begin(), iter_end = data_flow_G->link.end(); iter != iter_end; iter++){
+					file << "edge [color=grey]" << "\n";
+					file << "\tNode" << iter->first << " -> Node" << iter->second << "\n";
+					errs() << *iter->first << *iter->second << "\n";
 				}
 			}
 			file << "}\n";

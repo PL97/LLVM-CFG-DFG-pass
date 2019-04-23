@@ -1,12 +1,24 @@
-#include <llvm/IR/Value*.h>
+#include <llvm/IR/Module.h>
+#include <llvm/IR/Function.h>
+#include <llvm/IR/BasicBlock.h>
+#include <llvm/Pass.h>
+#include <llvm/IR/Value.h>
+#include <llvm/IR/Instruction.h>
+#include <llvm/IR/Instructions.h>
+#include <llvm/Support/raw_ostream.h>
+#include <llvm/IR/Use.h>
+#include <llvm/Analysis/CFG.h>
+#include <list>
 #include<vector>
 #include<string>
 #include<set>
+#include<map>
 
 using std::string;
 using std::vector;
 using std::set;
 using std::pair;
+using std::map;
 
 using namespace llvm;
 
@@ -41,7 +53,14 @@ struct Vertex
 
 struct Graph
 {
+	Function* F;
 	vector<Vertex*> v;
+	vector<pair<Value*, Value*>> head;
+	vector<pair<Value*, Value*>> link;
+
+	Graph(){}
+	Graph(Function* f):F(f){}
+
 };
 
 void getGraphInfo(Graph* g)
@@ -130,31 +149,21 @@ void insert(Graph *G, pair<Value*, Value*>e)
 }
 
 set<pair<int, int>> mark;
+enum Mode{WITHCFG, NOTWITHCFG};
 
 void DFS(Edge* v, Graph* G)
 {
+	mark.clear();
 	Edge* p = v;
 	while (p)
 	{
 		if (mark.find(pair<int, int>(p->v_from, p->v_to)) == mark.end()) 
 		{
 			mark.insert(pair<int, int>(p->v_from, p->v_to));
-			errs() << p->v_from << "->" << p->v_to << '\n';
+			errs() << *G->v[p->v_from]->va << "->" << *G->v[p->v_to]->va << '\n';
+			errs() << '\n';
 			DFS(G->v[p->v_to]->first_out, G);
 		}
 		p = p->out_edge;
 	}
 }
-
-// int main() {
-// 	Graph* G = new Graph();
-
-// 	insert(G, pair<Value*, Value*>("v1", "v2"));
-// 	insert(G, pair<Value*, Value*>("v2", "v3"));
-// 	insert(G, pair<Value*, Value*>("v3", "v1"));
-// 	insert(G, pair<Value*, Value*>("v1", "v3"));
-
-// 	//getGraphInfo(G);
-// 	DFS(G->v[0]->first_out, G);
-// 	find(G->v, "test");
-// }
