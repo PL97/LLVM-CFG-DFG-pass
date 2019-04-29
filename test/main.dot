@@ -1,38 +1,38 @@
 digraph "DFG for'main' function" {
-	Node0x55657fdb2440[shape=ellipse, label="i32 0\l0x55657fdb2440"];
-	Node0x55657fdb24a0[shape=record, label="  store i32 0, i32* %1, align 4"];
-	Node0x55657fdb22e8[shape=record, label="  %1 = alloca i32, align 4"];
-	Node0x55657fdb24f0[shape=ellipse, label="i32 10\l0x55657fdb24f0"];
-	Node0x55657fdb2550[shape=record, label="  store i32 10, i32* %2, align 4"];
-	Node0x55657fdb2368[shape=record, label="  %2 = alloca i32, align 4"];
-	Node0x55657fdb25b8[shape=record, label="  %4 = load i32, i32* %2, align 4"];
-	Node0x55657fdb2680[shape=record, label="  store i32 %4, i32* %3, align 4"];
-	Node0x55657fdb23f8[shape=record, label="  %3 = alloca i32, align 4"];
-	Node0x55657fdb26e8[shape=record, label="  %5 = load i32, i32* %2, align 4"];
-	Node0x55657fdb2748[shape=record, label="  %6 = load i32, i32* %3, align 4"];
-	Node0x55657fdb27d8[shape=record, label="  %7 = call i32 @add(i32 %5, i32 %6)"];
-	Node0x55657fdb2898[shape=record, label="  ret i32 %7"];
-	Node0x55657fdb22e8 -> Node0x55657fdb2368
-	Node0x55657fdb2368 -> Node0x55657fdb23f8
-	Node0x55657fdb23f8 -> Node0x55657fdb24a0
-	Node0x55657fdb24a0 -> Node0x55657fdb2550
-	Node0x55657fdb2550 -> Node0x55657fdb25b8
-	Node0x55657fdb25b8 -> Node0x55657fdb2680
-	Node0x55657fdb2680 -> Node0x55657fdb26e8
-	Node0x55657fdb26e8 -> Node0x55657fdb2748
-	Node0x55657fdb2748 -> Node0x55657fdb27d8
-	Node0x55657fdb27d8 -> Node0x55657fdb2898
+	Node0x559af3786440[shape=ellipse, label="i32 0\l0x559af3786440"];
+	Node0x559af37864a0[shape=record, label="  store i32 0, i32* %1, align 4"];
+	Node0x559af37862e8[shape=record, label="  %1 = alloca i32, align 4"];
+	Node0x559af37864f0[shape=ellipse, label="i32 10\l0x559af37864f0"];
+	Node0x559af3786550[shape=record, label="  store i32 10, i32* %2, align 4"];
+	Node0x559af3786368[shape=record, label="  %2 = alloca i32, align 4"];
+	Node0x559af37865b8[shape=record, label="  %4 = load i32, i32* %2, align 4"];
+	Node0x559af3786680[shape=record, label="  store i32 %4, i32* %3, align 4"];
+	Node0x559af37863f8[shape=record, label="  %3 = alloca i32, align 4"];
+	Node0x559af37866e8[shape=record, label="  %5 = load i32, i32* %2, align 4"];
+	Node0x559af3786748[shape=record, label="  %6 = load i32, i32* %3, align 4"];
+	Node0x559af37867d8[shape=record, label="  %7 = call i32 @add(i32 %5, i32 %6)"];
+	Node0x559af3786898[shape=record, label="  ret i32 %7"];
+	Node0x559af37862e8 -> Node0x559af3786368
+	Node0x559af3786368 -> Node0x559af37863f8
+	Node0x559af37863f8 -> Node0x559af37864a0
+	Node0x559af37864a0 -> Node0x559af3786550
+	Node0x559af3786550 -> Node0x559af37865b8
+	Node0x559af37865b8 -> Node0x559af3786680
+	Node0x559af3786680 -> Node0x559af37866e8
+	Node0x559af37866e8 -> Node0x559af3786748
+	Node0x559af3786748 -> Node0x559af37867d8
+	Node0x559af37867d8 -> Node0x559af3786898
 edge [color=red]
-	Node0x55657fdb2440 -> Node0x55657fdb24a0
-	Node0x55657fdb24a0 -> Node0x55657fdb22e8
-	Node0x55657fdb24f0 -> Node0x55657fdb2550
-	Node0x55657fdb2550 -> Node0x55657fdb2368
-	Node0x55657fdb2368 -> Node0x55657fdb25b8
-	Node0x55657fdb25b8 -> Node0x55657fdb2680
-	Node0x55657fdb2680 -> Node0x55657fdb23f8
-	Node0x55657fdb23f8 -> Node0x55657fdb2748
-	Node0x55657fdb2748 -> Node0x55657fdb27d8
-	Node0x55657fdb27d8 -> Node0x55657fdb2898
-	Node0x55657fdb2368 -> Node0x55657fdb26e8
-	Node0x55657fdb26e8 -> Node0x55657fdb27d8
+	Node0x559af3786440 -> Node0x559af37864a0
+	Node0x559af37864a0 -> Node0x559af37862e8
+	Node0x559af37864f0 -> Node0x559af3786550
+	Node0x559af3786550 -> Node0x559af3786368
+	Node0x559af3786368 -> Node0x559af37865b8
+	Node0x559af37865b8 -> Node0x559af3786680
+	Node0x559af3786680 -> Node0x559af37863f8
+	Node0x559af37863f8 -> Node0x559af3786748
+	Node0x559af3786748 -> Node0x559af37867d8
+	Node0x559af37867d8 -> Node0x559af3786898
+	Node0x559af3786368 -> Node0x559af37866e8
+	Node0x559af37866e8 -> Node0x559af37867d8
 }

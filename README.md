@@ -32,3 +32,5 @@ the result is based on the c code: ***test.c***
 <br>
 <div align="center"><img width = '500' height = '500' src = 'DFG.png'></div>
 <div align="center">fig1: DFG for test.c</di>
+
+**Note: each argument has been marked with different kinds of color. So the life span of each argument can be visible in this graph.**

@@ -1,57 +1,114 @@
 digraph "DFG for all" {
-	Node0x55657fdb16d0[shape=ellipse, label="i32 %0\l0x55657fdb16d0"];
-	Node0x55657fdb1f70[shape=record, label="  store i32 %0, i32* %3, align 4"];
-	Node0x55657fdb1808[shape=record, label="  %3 = alloca i32, align 4"];
-	Node0x55657fdb16f8[shape=ellipse, label="i32 %1\l0x55657fdb16f8"];
-	Node0x55657fdb1ff0[shape=record, label="  store i32 %1, i32* %4, align 4"];
-	Node0x55657fdb1ea8[shape=record, label="  %4 = alloca i32, align 4"];
-	Node0x55657fdb2058[shape=record, label="  %5 = load i32, i32* %3, align 4"];
-	Node0x55657fdb20b8[shape=record, label="  %6 = load i32, i32* %4, align 4"];
-	Node0x55657fdb2130[shape=record, label="  %7 = add nsw i32 %5, %6"];
-	Node0x55657fdb2188[shape=record, label="  ret i32 %7"];
+	Node0x558c50e2d6d0[shape=ellipse, label="i32 %0\l0x558c50e2d6d0"];
+	Node0x558c50e2df70[shape=record, label="  store i32 %0, i32* %3, align 4"];
+	Node0x558c50e2d808[shape=record, label="  %3 = alloca i32, align 4"];
+	Node0x558c50e2d6f8[shape=ellipse, label="i32 %1\l0x558c50e2d6f8"];
+	Node0x558c50e2dff0[shape=record, label="  store i32 %1, i32* %4, align 4"];
+	Node0x558c50e2dea8[shape=record, label="  %4 = alloca i32, align 4"];
+	Node0x558c50e2e058[shape=record, label="  %5 = load i32, i32* %3, align 4"];
+	Node0x558c50e2e0b8[shape=record, label="  %6 = load i32, i32* %4, align 4"];
+	Node0x558c50e2e130[shape=record, label="  %7 = add nsw i32 %5, %6"];
+	Node0x558c50e2e188[shape=record, label="  ret i32 %7"];
 edge [color=red]
-	Node0x55657fdb16d0 -> Node0x55657fdb1f70
-	Node0x55657fdb1f70 -> Node0x55657fdb1808
-	Node0x55657fdb1808 -> Node0x55657fdb2058
-	Node0x55657fdb2058 -> Node0x55657fdb2130
-	Node0x55657fdb2130 -> Node0x55657fdb2188
+	Node0x558c50e2d6d0 -> Node0x558c50e2df70
+	Node0x558c50e2df70 -> Node0x558c50e2d808
+	Node0x558c50e2d808 -> Node0x558c50e2e058
+	Node0x558c50e2e058 -> Node0x558c50e2e130
+	Node0x558c50e2e130 -> Node0x558c50e2e188
 edge [color=blue]
-	Node0x55657fdb16f8 -> Node0x55657fdb1ff0
-	Node0x55657fdb1ff0 -> Node0x55657fdb1ea8
-	Node0x55657fdb1ea8 -> Node0x55657fdb20b8
-	Node0x55657fdb20b8 -> Node0x55657fdb2130
-	Node0x55657fdb2440[shape=ellipse, label="i32 0\l0x55657fdb2440"];
-	Node0x55657fdb24a0[shape=record, label="  store i32 0, i32* %1, align 4"];
-	Node0x55657fdb22e8[shape=record, label="  %1 = alloca i32, align 4"];
-	Node0x55657fdb24f0[shape=ellipse, label="i32 10\l0x55657fdb24f0"];
-	Node0x55657fdb2550[shape=record, label="  store i32 10, i32* %2, align 4"];
-	Node0x55657fdb2368[shape=record, label="  %2 = alloca i32, align 4"];
-	Node0x55657fdb25b8[shape=record, label="  %4 = load i32, i32* %2, align 4"];
-	Node0x55657fdb2680[shape=record, label="  store i32 %4, i32* %3, align 4"];
-	Node0x55657fdb23f8[shape=record, label="  %3 = alloca i32, align 4"];
-	Node0x55657fdb26e8[shape=record, label="  %5 = load i32, i32* %2, align 4"];
-	Node0x55657fdb2748[shape=record, label="  %6 = load i32, i32* %3, align 4"];
-	Node0x55657fdb27d8[shape=record, label="  %7 = call i32 @add(i32 %5, i32 %6)"];
-	Node0x55657fdb2898[shape=record, label="  ret i32 %7"];
+	Node0x558c50e2d6f8 -> Node0x558c50e2dff0
+	Node0x558c50e2dff0 -> Node0x558c50e2dea8
+	Node0x558c50e2dea8 -> Node0x558c50e2e0b8
+	Node0x558c50e2e0b8 -> Node0x558c50e2e130
+	Node0x558c50e2e440[shape=ellipse, label="i32 0\l0x558c50e2e440"];
+	Node0x558c50e2e4a0[shape=record, label="  store i32 0, i32* %1, align 4"];
+	Node0x558c50e2e2e8[shape=record, label="  %1 = alloca i32, align 4"];
+	Node0x558c50e2e4f0[shape=ellipse, label="i32 10\l0x558c50e2e4f0"];
+	Node0x558c50e2e550[shape=record, label="  store i32 10, i32* %2, align 4"];
+	Node0x558c50e2e368[shape=record, label="  %2 = alloca i32, align 4"];
+	Node0x558c50e2e5b8[shape=record, label="  %4 = load i32, i32* %2, align 4"];
+	Node0x558c50e2e680[shape=record, label="  store i32 %4, i32* %3, align 4"];
+	Node0x558c50e2e3f8[shape=record, label="  %3 = alloca i32, align 4"];
+	Node0x558c50e2e6e8[shape=record, label="  %5 = load i32, i32* %2, align 4"];
+	Node0x558c50e2e748[shape=record, label="  %6 = load i32, i32* %3, align 4"];
+	Node0x558c50e2e7d8[shape=record, label="  %7 = call i32 @add(i32 %5, i32 %6)"];
+	Node0x558c50e2e898[shape=record, label="  ret i32 %7"];
 edge [color=red]
-	Node0x55657fdb2440 -> Node0x55657fdb24a0
-	Node0x55657fdb24a0 -> Node0x55657fdb22e8
+	Node0x558c50e2e440 -> Node0x558c50e2e4a0
+	Node0x558c50e2e4a0 -> Node0x558c50e2e2e8
 edge [color=blue]
-	Node0x55657fdb24f0 -> Node0x55657fdb2550
-	Node0x55657fdb2550 -> Node0x55657fdb2368
-	Node0x55657fdb2368 -> Node0x55657fdb25b8
-	Node0x55657fdb25b8 -> Node0x55657fdb2680
-	Node0x55657fdb2680 -> Node0x55657fdb23f8
-	Node0x55657fdb23f8 -> Node0x55657fdb2748
-	Node0x55657fdb2748 -> Node0x55657fdb27d8
-	Node0x55657fdb27d8 -> Node0x55657fdb2898
-	Node0x55657fdb2368 -> Node0x55657fdb26e8
-	Node0x55657fdb26e8 -> Node0x55657fdb27d8
+	Node0x558c50e2e4f0 -> Node0x558c50e2e550
+	Node0x558c50e2e550 -> Node0x558c50e2e368
+	Node0x558c50e2e368 -> Node0x558c50e2e5b8
+	Node0x558c50e2e5b8 -> Node0x558c50e2e680
+	Node0x558c50e2e680 -> Node0x558c50e2e3f8
+	Node0x558c50e2e3f8 -> Node0x558c50e2e748
+	Node0x558c50e2e748 -> Node0x558c50e2e7d8
+	Node0x558c50e2e7d8 -> Node0x558c50e2e898
+	Node0x558c50e2e368 -> Node0x558c50e2e6e8
+	Node0x558c50e2e6e8 -> Node0x558c50e2e7d8
 edge [color=cyan]
 edge [color=grey]
-	Node0x55657fdb27d8 -> Node0x55657fdb16d0
+	Node0x558c50e2e7d8 -> Node0x558c50e2d6d0
 edge [color=grey]
-	Node0x55657fdb27d8 -> Node0x55657fdb16f8
+	Node0x558c50e2e7d8 -> Node0x558c50e2d6f8
 edge [color=grey]
-	Node0x55657fdb2188 -> Node0x55657fdb27d8
+	Node0x558c50e2e188 -> Node0x558c50e2e7d8
+}
+digraph "DFG for all" {
+	Node0x559af37856d0[shape=ellipse, label="i32 %0\l0x559af37856d0"];
+	Node0x559af3785f70[shape=record, label="  store i32 %0, i32* %3, align 4"];
+	Node0x559af3785808[shape=record, label="  %3 = alloca i32, align 4"];
+	Node0x559af37856f8[shape=ellipse, label="i32 %1\l0x559af37856f8"];
+	Node0x559af3785ff0[shape=record, label="  store i32 %1, i32* %4, align 4"];
+	Node0x559af3785ea8[shape=record, label="  %4 = alloca i32, align 4"];
+	Node0x559af3786058[shape=record, label="  %5 = load i32, i32* %3, align 4"];
+	Node0x559af37860b8[shape=record, label="  %6 = load i32, i32* %4, align 4"];
+	Node0x559af3786130[shape=record, label="  %7 = add nsw i32 %5, %6"];
+	Node0x559af3786188[shape=record, label="  ret i32 %7"];
+edge [color=red]
+	Node0x559af37856d0 -> Node0x559af3785f70
+	Node0x559af3785f70 -> Node0x559af3785808
+	Node0x559af3785808 -> Node0x559af3786058
+	Node0x559af3786058 -> Node0x559af3786130
+	Node0x559af3786130 -> Node0x559af3786188
+edge [color=blue]
+	Node0x559af37856f8 -> Node0x559af3785ff0
+	Node0x559af3785ff0 -> Node0x559af3785ea8
+	Node0x559af3785ea8 -> Node0x559af37860b8
+	Node0x559af37860b8 -> Node0x559af3786130
+	Node0x559af3786440[shape=ellipse, label="i32 0\l0x559af3786440"];
+	Node0x559af37864a0[shape=record, label="  store i32 0, i32* %1, align 4"];
+	Node0x559af37862e8[shape=record, label="  %1 = alloca i32, align 4"];
+	Node0x559af37864f0[shape=ellipse, label="i32 10\l0x559af37864f0"];
+	Node0x559af3786550[shape=record, label="  store i32 10, i32* %2, align 4"];
+	Node0x559af3786368[shape=record, label="  %2 = alloca i32, align 4"];
+	Node0x559af37865b8[shape=record, label="  %4 = load i32, i32* %2, align 4"];
+	Node0x559af3786680[shape=record, label="  store i32 %4, i32* %3, align 4"];
+	Node0x559af37863f8[shape=record, label="  %3 = alloca i32, align 4"];
+	Node0x559af37866e8[shape=record, label="  %5 = load i32, i32* %2, align 4"];
+	Node0x559af3786748[shape=record, label="  %6 = load i32, i32* %3, align 4"];
+	Node0x559af37867d8[shape=record, label="  %7 = call i32 @add(i32 %5, i32 %6)"];
+	Node0x559af3786898[shape=record, label="  ret i32 %7"];
+edge [color=red]
+	Node0x559af3786440 -> Node0x559af37864a0
+	Node0x559af37864a0 -> Node0x559af37862e8
+edge [color=blue]
+	Node0x559af37864f0 -> Node0x559af3786550
+	Node0x559af3786550 -> Node0x559af3786368
+	Node0x559af3786368 -> Node0x559af37865b8
+	Node0x559af37865b8 -> Node0x559af3786680
+	Node0x559af3786680 -> Node0x559af37863f8
+	Node0x559af37863f8 -> Node0x559af3786748
+	Node0x559af3786748 -> Node0x559af37867d8
+	Node0x559af37867d8 -> Node0x559af3786898
+	Node0x559af3786368 -> Node0x559af37866e8
+	Node0x559af37866e8 -> Node0x559af37867d8
+edge [color=cyan]
+edge [color=grey]
+	Node0x559af37867d8 -> Node0x559af37856d0
+edge [color=grey]
+	Node0x559af37867d8 -> Node0x559af37856f8
+edge [color=grey]
+	Node0x559af3786188 -> Node0x559af37867d8
 }

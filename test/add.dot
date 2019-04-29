@@ -1,29 +1,29 @@
 digraph "DFG for'add' function" {
-	Node0x55657fdb16d0[shape=ellipse, label="i32 %0\l0x55657fdb16d0"];
-	Node0x55657fdb1f70[shape=record, label="  store i32 %0, i32* %3, align 4"];
-	Node0x55657fdb1808[shape=record, label="  %3 = alloca i32, align 4"];
-	Node0x55657fdb16f8[shape=ellipse, label="i32 %1\l0x55657fdb16f8"];
-	Node0x55657fdb1ff0[shape=record, label="  store i32 %1, i32* %4, align 4"];
-	Node0x55657fdb1ea8[shape=record, label="  %4 = alloca i32, align 4"];
-	Node0x55657fdb2058[shape=record, label="  %5 = load i32, i32* %3, align 4"];
-	Node0x55657fdb20b8[shape=record, label="  %6 = load i32, i32* %4, align 4"];
-	Node0x55657fdb2130[shape=record, label="  %7 = add nsw i32 %5, %6"];
-	Node0x55657fdb2188[shape=record, label="  ret i32 %7"];
-	Node0x55657fdb1808 -> Node0x55657fdb1ea8
-	Node0x55657fdb1ea8 -> Node0x55657fdb1f70
-	Node0x55657fdb1f70 -> Node0x55657fdb1ff0
-	Node0x55657fdb1ff0 -> Node0x55657fdb2058
-	Node0x55657fdb2058 -> Node0x55657fdb20b8
-	Node0x55657fdb20b8 -> Node0x55657fdb2130
-	Node0x55657fdb2130 -> Node0x55657fdb2188
+	Node0x559af37856d0[shape=ellipse, label="i32 %0\l0x559af37856d0"];
+	Node0x559af3785f70[shape=record, label="  store i32 %0, i32* %3, align 4"];
+	Node0x559af3785808[shape=record, label="  %3 = alloca i32, align 4"];
+	Node0x559af37856f8[shape=ellipse, label="i32 %1\l0x559af37856f8"];
+	Node0x559af3785ff0[shape=record, label="  store i32 %1, i32* %4, align 4"];
+	Node0x559af3785ea8[shape=record, label="  %4 = alloca i32, align 4"];
+	Node0x559af3786058[shape=record, label="  %5 = load i32, i32* %3, align 4"];
+	Node0x559af37860b8[shape=record, label="  %6 = load i32, i32* %4, align 4"];
+	Node0x559af3786130[shape=record, label="  %7 = add nsw i32 %5, %6"];
+	Node0x559af3786188[shape=record, label="  ret i32 %7"];
+	Node0x559af3785808 -> Node0x559af3785ea8
+	Node0x559af3785ea8 -> Node0x559af3785f70
+	Node0x559af3785f70 -> Node0x559af3785ff0
+	Node0x559af3785ff0 -> Node0x559af3786058
+	Node0x559af3786058 -> Node0x559af37860b8
+	Node0x559af37860b8 -> Node0x559af3786130
+	Node0x559af3786130 -> Node0x559af3786188
 edge [color=red]
-	Node0x55657fdb16d0 -> Node0x55657fdb1f70
-	Node0x55657fdb1f70 -> Node0x55657fdb1808
-	Node0x55657fdb1808 -> Node0x55657fdb2058
-	Node0x55657fdb2058 -> Node0x55657fdb2130
-	Node0x55657fdb2130 -> Node0x55657fdb2188
-	Node0x55657fdb16f8 -> Node0x55657fdb1ff0
-	Node0x55657fdb1ff0 -> Node0x55657fdb1ea8
-	Node0x55657fdb1ea8 -> Node0x55657fdb20b8
-	Node0x55657fdb20b8 -> Node0x55657fdb2130
+	Node0x559af37856d0 -> Node0x559af3785f70
+	Node0x559af3785f70 -> Node0x559af3785808
+	Node0x559af3785808 -> Node0x559af3786058
+	Node0x559af3786058 -> Node0x559af3786130
+	Node0x559af3786130 -> Node0x559af3786188
+	Node0x559af37856f8 -> Node0x559af3785ff0
+	Node0x559af3785ff0 -> Node0x559af3785ea8
+	Node0x559af3785ea8 -> Node0x559af37860b8
+	Node0x559af37860b8 -> Node0x559af3786130
 }
